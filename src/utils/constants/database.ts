@@ -1,1 +1,1 @@
-export const DATABASE_CONN = 'CONNECTION';
+export const DATABASE_CONN = 'CONNECTION'
