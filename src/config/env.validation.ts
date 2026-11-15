@@ -1,4 +1,4 @@
-import { plainToInstance } from 'class-transformer';
+import { plainToInstance } from 'class-transformer'
 import {
   IsNotEmpty,
   IsNumber,
@@ -6,31 +6,31 @@ import {
   Max,
   Min,
   validateSync,
-} from 'class-validator';
+} from 'class-validator'
 
 class EnvironmentVariables {
   @IsNumber()
   @Min(1)
   @Max(65535)
-  PORT: number;
+  PORT: number
 
   @IsString()
   @IsNotEmpty()
-  DATABASE_URL: string;
+  DATABASE_URL: string
 }
 
 export const validateEnvVariables = (config: Record<string, unknown>) => {
   const validatedConfig = plainToInstance(EnvironmentVariables, config, {
     enableImplicitConversion: true,
-  });
+  })
 
   const errors = validateSync(validatedConfig, {
     skipMissingProperties: false,
-  });
+  })
 
   if (errors.length > 0) {
-    throw new Error(errors.toString());
+    throw new Error(errors.toString())
   }
 
-  return validatedConfig;
-};
+  return validatedConfig
+}
