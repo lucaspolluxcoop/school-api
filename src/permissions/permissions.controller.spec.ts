@@ -1,18 +1,28 @@
-import { Test, TestingModule } from '@nestjs/testing';
-import { PermissionsController } from './permissions.controller';
+import { Test, TestingModule } from '@nestjs/testing'
+import { PermissionsController } from './permissions.controller'
+import { PermissionsService } from './permissions.service'
 
 describe('PermissionsController', () => {
-  let controller: PermissionsController;
+  let controller: PermissionsController
+  const fakePermissionService = {
+    getAll: jest.fn(),
+  }
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [PermissionsController],
-    }).compile();
+      providers: [
+        {
+          provide: PermissionsService,
+          useValue: fakePermissionService,
+        },
+      ],
+    }).compile()
 
-    controller = module.get<PermissionsController>(PermissionsController);
-  });
+    controller = module.get<PermissionsController>(PermissionsController)
+  })
 
   it('should be defined', () => {
-    expect(controller).toBeDefined();
-  });
-});
+    expect(controller).toBeDefined()
+  })
+})

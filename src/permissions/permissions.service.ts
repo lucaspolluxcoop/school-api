@@ -1,4 +1,11 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common'
+import { PermissionsRepository } from './permissions.repository'
 
 @Injectable()
-export class PermissionsService {}
+export class PermissionsService {
+  constructor(private readonly repository: PermissionsRepository) {}
+
+  async getAll() {
+    return await this.repository.getAll()
+  }
+}

@@ -1,14 +1,12 @@
-import { Controller, Get } from '@nestjs/common';
-import { PermissionsService } from './permissions.service';
+import { Controller, Get } from '@nestjs/common'
+import { PermissionsService } from './permissions.service'
 
 @Controller('permissions')
 export class PermissionsController {
-  constructor(private readonly permissionsService : PermissionsService) {}
+  constructor(private readonly service: PermissionsService) {}
 
   @Get()
   async getPermissions() {
-    const permissions = await this.permissionsService.getAll()
-
-    return permissions
+    return await this.service.getAll()
   }
 }
