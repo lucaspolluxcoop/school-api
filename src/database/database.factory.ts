@@ -10,3 +10,5 @@ export const databaseFactory = (config: ConfigService) => {
 
   return db
 }
+
+export type PostgresDbType = ReturnType<typeof databaseFactory>

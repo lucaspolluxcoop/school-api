@@ -6,6 +6,7 @@ import { DatabaseModule } from './database/database.module'
 import { validateEnvVariables } from './config/env.validation'
 import { CustomExceptionFilter } from './utils/errors/custom-exception.filter'
 import { APP_FILTER } from '@nestjs/core'
+import { PermissionsModule } from './permissions/permissions.module'
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { APP_FILTER } from '@nestjs/core'
       validate: validateEnvVariables,
     }),
     DatabaseModule,
+    PermissionsModule,
   ],
   controllers: [AppController],
   providers: [
