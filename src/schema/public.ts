@@ -33,3 +33,18 @@ export const users = pgTable('users', {
     .notNull()
     .$onUpdate(() => new Date()),
 })
+
+export const sessions = pgTable('sessions', {
+  id: uuid().defaultRandom().primaryKey(),
+  token_hash: varchar({ length: 256 }).unique().notNull(),
+  user_id: uuid()
+    .references(() => users.id, { onDelete: 'cascade' })
+    .notNull(),
+  expires_at: timestamp({ withTimezone: true }).notNull(),
+  revoked_at: timestamp({ withTimezone: true }),
+  created_at: timestamp({ withTimezone: true }).defaultNow().notNull(),
+  updated_at: timestamp({ withTimezone: true })
+    .defaultNow()
+    .notNull()
+    .$onUpdate(() => new Date()),
+})

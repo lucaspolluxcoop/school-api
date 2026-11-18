@@ -15,6 +15,13 @@
       "when": 1794923469431,
       "tag": "0001_familiar_scorpion",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1795002028398,
+      "tag": "0002_married_frog_thor",
+      "breakpoints": true
     }
   ]
 }
