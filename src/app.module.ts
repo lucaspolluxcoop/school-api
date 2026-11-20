@@ -7,6 +7,7 @@ import { validateEnvVariables } from './config/env.validation'
 import { CustomExceptionFilter } from './utils/errors/custom-exception.filter'
 import { APP_FILTER } from '@nestjs/core'
 import { PermissionsModule } from './permissions/permissions.module'
+import { UsersModule } from './users/users.module'
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { PermissionsModule } from './permissions/permissions.module'
     }),
     DatabaseModule,
     PermissionsModule,
+    UsersModule,
   ],
   controllers: [AppController],
   providers: [
