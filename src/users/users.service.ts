@@ -5,7 +5,8 @@ import { UsersRepository } from './users.repository'
 export class UsersService {
   constructor(private readonly repository: UsersRepository) {}
 
-  async getUserByEmail(email: string) {
-    return await this.repository.getUserByEmail(email)
+  async getLoginUserByEmail(email: string) {
+    const lcEmail = email.toLowerCase()
+    return await this.repository.getLoginUserByEmail(lcEmail)
   }
 }
