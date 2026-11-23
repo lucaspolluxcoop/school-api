@@ -5,6 +5,7 @@ import {
   IsString,
   Max,
   Min,
+  MinLength,
   validateSync,
 } from 'class-validator'
 
@@ -17,6 +18,11 @@ class EnvironmentVariables {
   @IsString()
   @IsNotEmpty()
   DATABASE_URL: string
+
+  @IsString()
+  @IsNotEmpty()
+  @MinLength(32)
+  JWT_SECRET: string
 }
 
 export const validateEnvVariables = (config: Record<string, unknown>) => {
