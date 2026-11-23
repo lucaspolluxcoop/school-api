@@ -23,6 +23,11 @@ class EnvironmentVariables {
   @IsNotEmpty()
   @MinLength(32)
   JWT_SECRET: string
+
+  @IsString()
+  @IsNotEmpty()
+  @MinLength(16)
+  COOKIE_SECRET: string
 }
 
 export const validateEnvVariables = (config: Record<string, unknown>) => {
