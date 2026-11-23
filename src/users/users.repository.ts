@@ -16,4 +16,20 @@ export class UsersRepository {
 
     return currentUsers.length === 1 ? currentUsers[0] : undefined
   }
+
+  async getUserByEmail(email: string) {
+    const currentUsers = await this.db
+      .select()
+      .from(users)
+      .where(eq(users.email, email))
+
+    return currentUsers.length === 1 ? currentUsers[0] : undefined
+  }
+
+  async createUser(email: string, hashedPassword: string) {
+    return await this.db.insert(users).values({
+      email,
+      password: hashedPassword,
+    })
+  }
 }

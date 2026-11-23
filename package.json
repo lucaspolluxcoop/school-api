@@ -24,7 +24,9 @@
     "db:generate": "pnpm drizzle-kit generate",
     "db:migrate": "pnpm drizzle-kit migrate",
     "db:migrate-test": "NODE_ENV=test pnpm drizzle-kit migrate",
-    "db:studio": "pnpm exec drizzle-kit studio"
+    "db:studio": "pnpm exec drizzle-kit studio",
+    "db:seed-admin": "NODE_ENV=development ts-node src/seeds/admin.ts",
+    "db:seed-admin-test": "NODE_ENV=test ts-node src/seeds/admin.ts"
   },
   "dependencies": {
     "@nestjs/common": "^12.0.1",
