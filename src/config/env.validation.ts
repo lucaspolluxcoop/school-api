@@ -1,5 +1,6 @@
-import { plainToInstance } from 'class-transformer'
+import { plainToInstance, Transform } from 'class-transformer'
 import {
+  IsBoolean,
   IsNotEmpty,
   IsNumber,
   IsString,
@@ -28,6 +29,11 @@ class EnvironmentVariables {
   @IsNotEmpty()
   @MinLength(16)
   COOKIE_SECRET: string
+
+  @Transform(({ obj }) => obj.COOKIE_SECURE === 'true')
+  @IsNotEmpty()
+  @IsBoolean()
+  COOKIE_SECURE: boolean
 }
 
 export const validateEnvVariables = (config: Record<string, unknown>) => {
