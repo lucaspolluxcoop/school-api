@@ -4,6 +4,7 @@ import { Inject } from '@nestjs/common'
 import { sessions } from '../schema/public'
 import { sumDate } from '../utils/dates/dates'
 import { REFRESH_DURATION, REFRESH_DURATION_UNIT } from '../utils/constants/jwt'
+import { and, eq, isNull } from 'drizzle-orm'
 
 export class AuthRepository {
   constructor(@Inject(DATABASE_CONN) private readonly db: NodePgDatabase) {}
@@ -14,5 +15,15 @@ export class AuthRepository {
       user_id: userId,
       expires_at: sumDate(new Date(), REFRESH_DURATION, REFRESH_DURATION_UNIT),
     })
+  }
+
+  async revokeSession(token: string) {
+    return await this.db
+      .update(sessions)
+      .set({
+        revoked_at: new Date(),
+      })
+      .where(and(eq(sessions.token_hash, token), isNull(sessions.revoked_at)))
+      .returning()
   }
 }

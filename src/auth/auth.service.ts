@@ -49,4 +49,12 @@ export class AuthService {
       throw e
     }
   }
+
+  async logout(token: string) {
+    const hashedToken = refreshTokenHash(token)
+
+    const response = await this.repository.revokeSession(hashedToken)
+
+    return response.length >= 1
+  }
 }
