@@ -73,4 +73,28 @@ export class AuthController {
 
     return null
   }
+
+  @Post('/refresh')
+  async refresh(
+    @SignedCookies(REFRESH_TOKEN) token: string,
+    @Res({ passthrough: true }) res: Response,
+  ) {
+    if (!token) {
+      res.clearCookie(REFRESH_TOKEN, {
+        path: REFRESH_TOKEN_PATH,
+      })
+      throw new BadRequestException()
+    }
+
+    const response = await this.service.refresh(token)
+
+    if (!response) {
+      res.clearCookie(REFRESH_TOKEN, {
+        path: REFRESH_TOKEN_PATH,
+      })
+      throw new UnauthorizedException()
+    }
+
+    return { token: response.accessToken }
+  }
 }

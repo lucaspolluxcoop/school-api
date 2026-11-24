@@ -57,4 +57,16 @@ export class AuthService {
 
     return response.length >= 1
   }
+
+  async refresh(token: string) {
+    const hashedToken = refreshTokenHash(token)
+
+    const userId = await this.repository.getUserIdBySession(hashedToken)
+
+    if (!userId) return undefined
+
+    const accessToken = await this.jwtService.signAsync({ sub: userId })
+
+    return { accessToken }
+  }
 }
