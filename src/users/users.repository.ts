@@ -9,21 +9,33 @@ export class UsersRepository {
   constructor(@Inject(DATABASE_CONN) private readonly db: NodePgDatabase) {}
 
   async getLoginUserByEmail(email: string) {
-    const currentUsers = await this.db
+    const [user] = await this.db
       .select()
       .from(users)
       .where(and(eq(users.email, email), eq(users.is_active, true)))
 
-    return currentUsers.length === 1 ? currentUsers[0] : undefined
+    return user
   }
 
   async getUserByEmail(email: string) {
-    const currentUsers = await this.db
+    const [user] = await this.db
       .select()
       .from(users)
       .where(eq(users.email, email))
 
-    return currentUsers.length === 1 ? currentUsers[0] : undefined
+    return user
+  }
+
+  async getUser(id: string) {
+    const [user] = await this.db
+      .select({
+        id: users.id,
+        email: users.email,
+      })
+      .from(users)
+      .where(eq(users.id, id))
+
+    return user
   }
 
   async createUser(email: string, hashedPassword: string) {

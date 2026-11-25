@@ -16,6 +16,10 @@ export class UsersService {
     return await this.repository.getUserByEmail(lcEmail)
   }
 
+  async getUser(id: string) {
+    return await this.repository.getUser(id)
+  }
+
   async createUser(email: string, password: string) {
     const hashedPassword = await argonHashing(password)
     const lcEmail = email.toLowerCase()
